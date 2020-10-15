@@ -16,7 +16,8 @@
           "generator": "auto",
           "directory": "app/queue",
           "declareTo": "Application.queue",
-          "caseStyle": "camel"
+          "caseStyle": "camel",
+          "trigger": ["add", "unlink", "change"]
         }
       }
     }
