@@ -35,7 +35,7 @@ const plugin: EggPlugin = {
 
 ### 定义Queue
 
-在app目录新建queue目录，所有的Queue都要在该文件夹下定义，注意返回的类型一定要为bull的Queue，否则使用该插件无意义。这里只是约定。
+在`app`目录新建`queue`目录，所有的`Queue`都要在该文件夹下定义，注意返回的类型一定要为bull实例，否则使用该插件无意义。这里只是约定。
 
 ``` ts
 // app/queue/task.ts
@@ -60,7 +60,11 @@ export default (app: Application) => {
 };
 ```
 
-> 建议export导出为一个funtion，这样会注入一个Egg的Application实例。其余方式无需使用Application实例的可以直接导出定义的queue
+> 可以以文件夹分隔。
+>
+> 建议export导出为一个funtion，这样会注入一个Egg的Application实例。
+>
+> 如无需使用Application实例的可以直接导出定义的bull实例。
 >
 > 该插件辅助定义了`egg-ts-helper`，可以在TS项目中方便使用。
 
