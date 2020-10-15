@@ -1,75 +1,78 @@
 # egg-bull
 
 [![NPM version][npm-image]][npm-url]
-[![build status][travis-image]][travis-url]
-[![Test coverage][codecov-image]][codecov-url]
-[![David deps][david-image]][david-url]
-[![Known Vulnerabilities][snyk-image]][snyk-url]
 [![npm download][download-image]][download-url]
 
-[npm-image]: https://img.shields.io/npm/v/egg-bull.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/egg-bull
-[travis-image]: https://img.shields.io/travis/eggjs/egg-bull.svg?style=flat-square
-[travis-url]: https://travis-ci.org/eggjs/egg-bull
-[codecov-image]: https://img.shields.io/codecov/c/github/eggjs/egg-bull.svg?style=flat-square
-[codecov-url]: https://codecov.io/github/eggjs/egg-bull?branch=master
-[david-image]: https://img.shields.io/david/eggjs/egg-bull.svg?style=flat-square
-[david-url]: https://david-dm.org/eggjs/egg-bull
-[snyk-image]: https://snyk.io/test/npm/egg-bull/badge.svg?style=flat-square
-[snyk-url]: https://snyk.io/test/npm/egg-bull
-[download-image]: https://img.shields.io/npm/dm/egg-bull.svg?style=flat-square
-[download-url]: https://npmjs.org/package/egg-bull
+[npm-image]: https://img.shields.io/npm/v/@hackycy/egg-bull.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/@hackycy/egg-bull
+[download-image]: https://img.shields.io/npm/dm/@hackycy/egg-bull.svg?style=flat-square
+[download-url]: https://npmjs.org/package/@hackycy/egg-bull
 
-<!--
-Description here.
--->
+[bull](https://github.com/OptimalBits/bull) plugin for Egg.js.
 
-## 依赖说明
+## 安装
 
-### 依赖的 egg 版本
+```bash
+$ npm install -S @hackycy/egg-bull bull
+$ npm install --save-dev @types/bull
+```
 
-egg-bull 版本 | egg 1.x
---- | ---
-1.x | 😁
-0.x | ❌
+## 使用
 
-### 依赖的插件
-<!--
+### 插件启用
 
-如果有依赖其它插件，请在这里特别说明。如
+``` ts
+// {app_root}/config/plugin.ts
+const plugin: EggPlugin = {
+  bull: {
+    enable: true,
+    package: '@hackycy/egg-bull',
+  },
+}
+```
 
-- security
-- multipart
+### 定义Queue
 
--->
+在app目录新建queue目录，再进行编写Queue
 
-## 开启插件
+``` ts
+// app/queue/task.ts
+import * as Queue from 'bull';
+import { Application } from 'egg';
 
-```js
-// config/plugin.js
-exports.bull = {
-  enable: true,
-  package: 'egg-bull',
+export default (app: Application) => {
+  app.logger.info('queue');
+  const q = new Queue('testqueue', {
+    redis: {
+      port: 6379,
+      host: '127.0.0.1',
+      password: '123456',
+      db: 0,
+    },
+  });
+  q.process(function(job, done) {
+    app.logger.info('[queue]', job.data);
+    done();
+  });
+  return q;
 };
 ```
 
-## 使用场景
+> 建议export导出为一个funtion，这样会注入一个Egg的Application实例。类定义则无法获取。
+>
+> 该插件辅助定义了`egg-ts-helper`，可以再TS项目中方便使用。
 
-- Why and What: 描述为什么会有这个插件，它主要在完成一件什么事情。
-尽可能描述详细。
-- How: 描述这个插件是怎样使用的，具体的示例代码，甚至提供一个完整的示例，并给出链接。
+### 获取Queue
 
-## 详细配置
+已经将所有定义的Queue挂载到了Application上，例如获取上述定义的
 
-请到 [config/config.default.js](config/config.default.js) 查看详细配置项说明。
+``` typescript
+this.app.queue.task.add({ b: 'a' }); //具体使用与bull无差异
+```
 
-## 单元测试
+## 有问题或Bug
 
-<!-- 描述如何在单元测试中使用此插件，例如 schedule 如何触发。无则省略。-->
-
-## 提问交流
-
-请到 [egg issues](https://github.com/eggjs/egg/issues) 异步交流。
+请提出[issues](https://github.com/hackycy/egg-bull/issues)
 
 ## License
 
