@@ -1,24 +1,32 @@
 {
   "name": "@hackycy/egg-bull",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "bull plugin for EggJs",
   "eggPlugin": {
     "name": "bull"
   },
   "egg": {
     "typescript": true,
-    "declarations": true
+    "declarations": true,
+    "framework": "egg",
+    "tsHelper": {
+      "watchDirs": {
+        "model": {
+          "enabled": true,
+          "generator": "auto",
+          "directory": "app/queue",
+          "declareTo": "Application.queue",
+          "caseStyle": "camel"
+        }
+      }
+    }
   },
   "keywords": [
     "egg",
     "eggPlugin",
     "egg-plugin"
   ],
-  "dependencies": {
-    "bull": "^3.18.0"
-  },
   "devDependencies": {
-    "@types/bull": "^3.14.4",
     "autod": "^3.0.1",
     "autod-egg": "^1.1.0",
     "egg": "^2.16.0",
