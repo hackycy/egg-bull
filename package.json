@@ -1,9 +1,13 @@
 {
-  "name": "egg-bull",
-  "version": "1.0.0",
+  "name": "@hackycy/egg-bull",
+  "version": "0.0.1",
   "description": "bull plugin for EggJs",
   "eggPlugin": {
     "name": "bull"
+  },
+  "egg": {
+    "typescript": true,
+    "declarations": true
   },
   "keywords": [
     "egg",
@@ -39,21 +43,24 @@
   },
   "files": [
     "app.js",
-    "agent.js",
-    "config",
-    "app"
+    "lib/**/*.js",
+    "tshelper.js",
+    "package.json",
+    "index.d.ts",
+    "README.md",
+    "LICENSE"
   ],
   "ci": {
     "version": "8, 10"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/eggjs/egg-bull.git"
+    "url": "git+https://github.com/hackycy/egg-bull.git"
   },
   "bugs": {
-    "url": "https://github.com/eggjs/egg/issues"
+    "url": "https://github.com/hackycy/egg-bull/issues"
   },
-  "homepage": "https://github.com/eggjs/egg-bull#readme",
+  "homepage": "https://github.com/hackycy/egg-bull#readme",
   "author": "hackycy",
   "license": "MIT"
 }
