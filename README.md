@@ -17,6 +17,8 @@ $ npm install -S @hackycy/egg-bull bull
 $ npm install --save-dev @types/bull
 ```
 
+> 插件内并无直接依赖bull，需要自己安装
+
 ## 使用
 
 ### 插件启用
@@ -33,7 +35,7 @@ const plugin: EggPlugin = {
 
 ### 定义Queue
 
-在app目录新建queue目录，再进行编写Queue
+在app目录新建queue目录，所有的Queue都要在该文件夹下定义，注意返回的类型一定要为bull的Queue，否则使用该插件无意义。这里只是约定。
 
 ``` ts
 // app/queue/task.ts
@@ -58,9 +60,9 @@ export default (app: Application) => {
 };
 ```
 
-> 建议export导出为一个funtion，这样会注入一个Egg的Application实例。类定义则无法获取。
+> 建议export导出为一个funtion，这样会注入一个Egg的Application实例。其余方式无需使用Application实例的可以直接导出定义的queue
 >
-> 该插件辅助定义了`egg-ts-helper`，可以再TS项目中方便使用。
+> 该插件辅助定义了`egg-ts-helper`，可以在TS项目中方便使用。
 
 ### 获取Queue
 
