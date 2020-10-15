@@ -11,7 +11,7 @@
     "framework": "egg",
     "tsHelper": {
       "watchDirs": {
-        "model": {
+        "queue": {
           "enabled": true,
           "generator": "auto",
           "directory": "app/queue",
@@ -52,7 +52,6 @@
   "files": [
     "app.js",
     "lib/**/*.js",
-    "tshelper.js",
     "package.json",
     "index.d.ts",
     "README.md",
