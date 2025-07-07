@@ -1,9 +1,12 @@
 {
   "name": "@hackycy/egg-bull",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "bull plugin for EggJs",
   "eggPlugin": {
-    "name": "bull"
+    "name": "bull",
+    "optionalDependencies": [
+      "mongoose"
+    ]
   },
   "egg": {
     "typescript": true,
@@ -17,7 +20,11 @@
           "directory": "app/queue",
           "declareTo": "Application.queue",
           "caseStyle": "camel",
-          "trigger": ["add", "unlink", "change"]
+          "trigger": [
+            "add",
+            "unlink",
+            "change"
+          ]
         }
       }
     }
