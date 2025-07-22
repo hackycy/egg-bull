@@ -1,6 +1,7 @@
 {
   "name": "@hackycy/egg-bull",
   "version": "0.0.6",
+  "packageManager": "pnpm@10.13.1",
   "description": "bull plugin for EggJs",
   "eggPlugin": {
     "name": "bull",
